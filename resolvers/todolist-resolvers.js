@@ -163,37 +163,7 @@ module.exports = {
 			listItems = found.items;
 			return (found.items);
 
-		},
-
-		SortColumns: async (_, args) => {
-			const { _id, itemId, direction } = args;
-			const listId = new ObjectId(_id);
-			const found = await Todolist.findOne({_id: listId});
-			let listItems = found.items;
-			const index = listItems.findIndex(item => item._id.toString() === itemId);
-			// move selected item visually down the list
-			if(direction === 1 && index < listItems.length - 1) {
-				let next = listItems[index + 1];
-				let current = listItems[index]
-				listItems[index + 1] = current;
-				listItems[index] = next;
-			}
-			// move selected item visually up the list
-			else if(direction === -1 && index > 0) {
-				let prev = listItems[index - 1];
-				let current = listItems[index]
-				listItems[index - 1] = current;
-				listItems[index] = prev;
-			}
-			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
-			if(updated) return (listItems);
-			// return old ordering if reorder was unsuccessful
-			listItems = found.items;
-			return (found.items);
-
 		}
-
-		
 
 		
 

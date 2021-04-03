@@ -14,7 +14,6 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction,
-	SortColumns_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
@@ -34,7 +33,6 @@ const Homescreen = (props) => {
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
-	const [SortColumnsList]			= useMutation(mutations.Sort_Columns);
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -154,15 +152,6 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
-
-	const sortColumns = async (itemID, dir) => {
-		let listID = activeList._id;
-		let transaction = new SortColumns_Transaction(listID, itemID, dir, SortColumnsList);
-		props.tps.addTransaction(transaction);
-		tpsRedo();
-
-	};
-
 
 	const handleSetActive = (id) => {
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
