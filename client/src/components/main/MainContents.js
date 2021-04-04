@@ -3,12 +3,16 @@ import TableHeader      from './TableHeader';
 import TableContents    from './TableContents';
 
 const MainContents = (props) => {
+
     return (
         <div className='table ' >
             <TableHeader
                 sortList={props.sortList}
                 disabled={!props.activeList._id} addItem={props.addItem}
                 setShowDelete={props.setShowDelete} setActiveList={props.setActiveList}
+                undo={props.undo} redo={props.undo}
+                hasUndo={props.hasUndo}  hasRedo={props.hasRedo}
+                resetTps={props.resetTps}
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}

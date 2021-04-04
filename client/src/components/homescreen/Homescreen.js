@@ -17,6 +17,7 @@ import { UpdateListField_Transaction,
 	SortList_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
+import { Query } from 'mongoose';
 
 
 const Homescreen = (props) => {
@@ -41,6 +42,7 @@ const Homescreen = (props) => {
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { todolists = data.getAllTodos; }
+
 
 	const auth = props.user === null ? false : true;
 
@@ -67,6 +69,26 @@ const Homescreen = (props) => {
 		refetchTodos(refetch);
 		return retVal;
 	}
+
+	const hasUndo = () => {
+		const retVal = props.tps.hasTransactionToUndo();
+		console.log(retVal)
+		return retVal;
+		console.log("what")
+		return true;
+	}
+
+	const hasRedo = () => {
+		const retVal = props.tps.hasTransactionToRedo();
+		console.log(retVal)
+		return retVal;
+	}
+
+	const resetTps = () => {
+		props.tps.clearAllTransactions();
+	}
+
+	
 
 
 	// Creates a default item and passes it to the backend resolver.
@@ -143,6 +165,8 @@ const Homescreen = (props) => {
 
 
 	const createNewList = async () => {
+		props.tps.clearAllTransactions()
+
 		const length = todolists.length
 		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
 		let list = {
@@ -160,6 +184,8 @@ const Homescreen = (props) => {
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		refetch();
 		setActiveList({});
+		props.tps.clearAllTransactions()
+
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
@@ -169,9 +195,10 @@ const Homescreen = (props) => {
 
 	};
 
-	const handleSetActive = (id) => {
-		const todo = todolists.find(todo => todo.id === id || todo._id === id);
+	const handleSetActive = async (_id) => {
+		const todo = todolists.find(todo => todo._id === _id || todo.id === _id);
 		setActiveList(todo);
+		props.tps.clearAllTransactions()
 	};
 
 	
@@ -223,7 +250,8 @@ const Homescreen = (props) => {
 					{
 						activeList ?
 							<SidebarContents
-								todolists={todolists} activeid={activeList.id} auth={auth}
+								todolists={todolists} 
+								activeid={activeList.id} auth={auth}
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}
@@ -243,6 +271,10 @@ const Homescreen = (props) => {
 									setShowDelete={setShowDelete}
 									sortList={sortList}
 									activeList={activeList} setActiveList={setActiveList}
+									undo={tpsUndo} redo={tpsRedo}
+									hasUndo={hasUndo} hasRedo={hasRedo}
+									resetTps={resetTps}
+
 								/>
 							</div>
 						:

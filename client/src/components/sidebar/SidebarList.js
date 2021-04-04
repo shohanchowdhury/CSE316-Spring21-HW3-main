@@ -2,6 +2,9 @@ import React        from 'react';
 import SidebarEntry from './SidebarEntry';
 
 const SidebarList = (props) => {
+
+    
+
     return (
         <>
             {
