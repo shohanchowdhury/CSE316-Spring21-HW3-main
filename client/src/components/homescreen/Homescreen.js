@@ -14,6 +14,7 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction,
+	SortList_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
@@ -33,6 +34,7 @@ const Homescreen = (props) => {
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
+	const [SortListItems]			= useMutation(mutations.SORT_LIST)
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -79,7 +81,7 @@ const Homescreen = (props) => {
 			id: lastID,
 			description: 'No Description',
 			due_date: 'No Date',
-			assigned_to: props.user._id,
+			assigned_to: "",
 			completed: false
 		};
 		let opcode = 1;
@@ -125,6 +127,20 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
+
+	const sortList = async (type) => {
+		let listID = activeList._id;
+		// console.log(activeList)
+		// console.log(type)
+		
+		let transaction = new SortList_Transaction(listID, type, SortListItems);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+
+		console.log("HOWSTHAT")
+
+	};
+
 
 	const createNewList = async () => {
 		const length = todolists.length
@@ -199,6 +215,7 @@ const Homescreen = (props) => {
 						/>
 					</ul>
 				</WNavbar>
+				
 			</WLHeader>
 
 			<WLSide side="left">
@@ -224,6 +241,7 @@ const Homescreen = (props) => {
 									addItem={addItem} deleteItem={deleteItem}
 									editItem={editItem} reorderItem={reorderItem}
 									setShowDelete={setShowDelete}
+									sortList={sortList}
 									activeList={activeList} setActiveList={setActiveList}
 								/>
 							</div>

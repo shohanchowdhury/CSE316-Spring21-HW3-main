@@ -47,6 +47,28 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
     
 }
 
+export class SortList_Transaction extends jsTPS_Transaction {
+    constructor(listID, type, callback) {
+        super();
+        this.listID = listID;
+		this.type = type;
+		// this.revDir = type === 1 ? -1 : 1;
+		this.updateFunction = callback;
+	}
+
+    // async doTransaction() {
+	// 	// const { data } = await 
+    //     this.updateFunction({ variables: { _id: this.listID, type: this.type }});
+	// 	// return data;
+    // }
+
+    // async undoTransaction() {
+	// 	const {data} = await this.updateFunction({ variables: { _id: this.listID, type: this.type }});
+	// 	return data;
+
+    // }
+    
+}
 
 export class EditItem_Transaction extends jsTPS_Transaction {
 	constructor(listID, itemID, field, prev, update, flag, callback) {
@@ -58,7 +80,9 @@ export class EditItem_Transaction extends jsTPS_Transaction {
 		this.update = update;
 		this.flag = flag;
 		this.updateFunction = callback;
+        console.log(field, update)
 	}	
+
 
 	async doTransaction() {
 		const { data } = await this.updateFunction({ 
@@ -67,6 +91,8 @@ export class EditItem_Transaction extends jsTPS_Transaction {
 							 flag: this.flag 
 						  }
 			});
+
+        console.log(data)
 		return data;
     }
 

@@ -61,6 +61,23 @@ export const UPDATE_ITEM_FIELD = gql`
 	}
 `;
 
+// export const SORT_LIST = gql`
+// 	mutation SortList($_id: String!, $type: String!) {
+// 		sortList(_id: $_id, type: $type) {
+// 			_id
+// 			type
+// 		}
+// 	}
+// `;
+export const SORT_LIST = gql`
+	mutation SortList($_id: String!, $type: String!) {
+		sortList(_id: $_id, type: $type) {
+			_id
+			type
+		}
+	}
+`;
+
 export const REORDER_ITEMS = gql`
 	mutation ReorderItems($_id: String!, $itemId: String!, $direction: Int!) {
 		reorderItems(_id: $_id, itemId: $itemId, direction: $direction) {

@@ -163,7 +163,12 @@ module.exports = {
 			listItems = found.items;
 			return (found.items);
 
-		}
+		},
+
+		sortList: async (_, args) => {
+			return true;
+		},
+		
 
 		
 
