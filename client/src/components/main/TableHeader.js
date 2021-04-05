@@ -7,7 +7,7 @@ const TableHeader = (props) => {
     const buttonStyle = props.disabled ? ' table-header-button-disabled ' : 'table-header-button ';
     const clickDisabled = () => { };
     
-    console.log(props.hasUndo());
+    //console.log(props.hasUndo());
 
     const closeList = () =>{
         props.setActiveList({})

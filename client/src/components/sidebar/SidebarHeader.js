@@ -2,7 +2,7 @@ import React                    from 'react';
 import { WButton, WRow, WCol }  from 'wt-frontend';
 
 const SidebarHeader = (props) => {
-    let flag1 = (JSON.stringify(props.activeList)=="{}")
+    let flag1 = (JSON.stringify(props.activeList)==="{}")
     //console.log(JSON.stringify(props.activeList))
     //console.log(flag1)
     return (

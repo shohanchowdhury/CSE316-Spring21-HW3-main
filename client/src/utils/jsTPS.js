@@ -216,6 +216,8 @@ export class jsTPS {
      async doTransaction() {
 		let retVal;
         if (this.hasTransactionToRedo()) {   
+            console.log("HURRAA")
+            console.log(this.hasTransactionToRedo())
             this.performingDo = true;
             let transaction = this.transactions[this.mostRecentTransaction+1];
 			retVal = await transaction.doTransaction();

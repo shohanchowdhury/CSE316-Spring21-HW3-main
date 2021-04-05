@@ -66,21 +66,22 @@ const Homescreen = (props) => {
 
 	const tpsRedo = async () => {
 		const retVal = await props.tps.doTransaction();
+		console.log("JUMPKEDS")
 		refetchTodos(refetch);
 		return retVal;
 	}
 
 	const hasUndo = () => {
 		const retVal = props.tps.hasTransactionToUndo();
-		console.log(retVal)
+		//console.log(retVal)
 		return retVal;
-		console.log("what")
-		return true;
+		// console.log("what")
+		// return true;
 	}
 
 	const hasRedo = () => {
 		const retVal = props.tps.hasTransactionToRedo();
-		console.log(retVal)
+		//console.log(retVal)
 		return retVal;
 	}
 
@@ -103,7 +104,7 @@ const Homescreen = (props) => {
 			id: lastID,
 			description: 'No Description',
 			due_date: 'No Date',
-			assigned_to: "",
+			assigned_to: "Not Assigned",
 			completed: false
 		};
 		let opcode = 1;

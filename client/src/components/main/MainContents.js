@@ -10,7 +10,7 @@ const MainContents = (props) => {
                 sortList={props.sortList}
                 disabled={!props.activeList._id} addItem={props.addItem}
                 setShowDelete={props.setShowDelete} setActiveList={props.setActiveList}
-                undo={props.undo} redo={props.undo}
+                undo={props.undo} redo={props.redo}
                 hasUndo={props.hasUndo}  hasRedo={props.hasRedo}
                 resetTps={props.resetTps}
             />

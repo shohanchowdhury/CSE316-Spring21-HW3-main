@@ -124,13 +124,14 @@ const TableEntry = (props) => {
 
             <WCol size="3">
                 <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted"
+                    <WButton className="table-entry-buttons" onClick={() =>flagHighest? '' : props.reorderItem(data._id, -1)} wType="texted"
+                    
                     style={{
                             color: flagHighest? '#313134' : ''
                           }}>
                         <i className="material-icons">expand_less</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted"
+                    <WButton className="table-entry-buttons" onClick={() =>flagLowest? '' :  props.reorderItem(data._id, 1)} wType="texted"
                     style={{
                         color: flagLowest? '#313134' : ''
                       }}
@@ -145,5 +146,6 @@ const TableEntry = (props) => {
         </WRow>
     );
 };
+
 
 export default TableEntry;
