@@ -15,6 +15,9 @@ const TableEntry = (props) => {
     const [editingStatus, toggleStatusEdit] = useState(false);
     const [editingAssignedTo, toggleAssignedToEdit] = useState(false);
 
+    let flagHighest = false;
+    let flagLowest = false;
+
 
     const handleDateEdit = (e) => {
         toggleDateEdit(false);
@@ -39,11 +42,21 @@ const TableEntry = (props) => {
 
     const handleAssignedToEdit = (e) => {
         toggleAssignedToEdit(false);
+        
         const newAssignedTo = e.target.value ? e.target.value : ''
         const prevAssignedTo = assignedTo;
         props.editItem(data._id, 'assigned_to', newAssignedTo, prevAssignedTo);
     };
 
+    let listItems = props.activeList
+    // console.log(listItems.items[0]._id)
+    if(listItems.items[0]._id===data._id){
+        flagHighest = true;
+    }
+    if(listItems.items[listItems.items.length-1]._id===data._id){
+        flagLowest = true;
+    }
+    //console.log(flagHighest,flagLowest)
     return (
         <WRow className='table-entry'>
             <WCol size="3">
@@ -111,10 +124,17 @@ const TableEntry = (props) => {
 
             <WCol size="3">
                 <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted">
+                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted"
+                    style={{
+                            color: flagHighest? '#313134' : ''
+                          }}>
                         <i className="material-icons">expand_less</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted">
+                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted"
+                    style={{
+                        color: flagLowest? '#313134' : ''
+                      }}
+                    >
                         <i className="material-icons">expand_more</i>
                     </WButton>
                     <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data)} wType="texted">

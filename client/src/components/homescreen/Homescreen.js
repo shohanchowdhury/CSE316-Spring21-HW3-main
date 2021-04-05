@@ -252,6 +252,7 @@ const Homescreen = (props) => {
 							<SidebarContents
 								todolists={todolists} 
 								activeid={activeList.id} auth={auth}
+								activeList={activeList}
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}

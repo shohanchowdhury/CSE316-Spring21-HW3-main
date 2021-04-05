@@ -36,12 +36,12 @@ const TableHeader = (props) => {
                 <div className="table-header-buttons">
                     
                     <WButton style={{
-                            color: props.hasUndo()? 'white' : 'black'
+                            color: props.hasUndo()? 'white' : '#313134'
                           }}  onClick={props.disabled ? clickDisabled : props.undo} wType="texted" className={`${buttonStyle}`}>
                         <i className="material-icons">undo</i>
                     </WButton>
                     <WButton style={{
-                            color: props.hasRedo()? 'white' : 'black'
+                            color: props.hasRedo()? 'white' : '#313134'
                           }} onClick={props.disabled ? clickDisabled : props.redo} wType="texted" className={`${buttonStyle}`}>
                         <i className="material-icons">redo</i>
                     </WButton>
