@@ -22,6 +22,7 @@ import { Query } from 'mongoose';
 
 const Homescreen = (props) => {
 
+	
 	let todolists 							= [];
 	const [activeList, setActiveList] 		= useState({});
 	const [showDelete, toggleShowDelete] 	= useState(false);
@@ -45,6 +46,8 @@ const Homescreen = (props) => {
 
 
 	const auth = props.user === null ? false : true;
+
+	
 
 	const refetchTodos = async (refetch) => {
 		const { loading, error, data } = await refetch();
@@ -88,9 +91,8 @@ const Homescreen = (props) => {
 		props.tps.clearAllTransactions();
 	}
 
+
 	
-
-
 	// Creates a default item and passes it to the backend resolver.
 	// The return id is assigned to the item, and the item is appended
 	//  to the local cache copy of the active todolist. 
