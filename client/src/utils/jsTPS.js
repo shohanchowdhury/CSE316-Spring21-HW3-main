@@ -1,3 +1,4 @@
+
 export class jsTPS_Transaction {
     constructor() {};
     doTransaction() {};
@@ -48,25 +49,26 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
 }
 
 export class SortList_Transaction extends jsTPS_Transaction {
-    constructor(listID, type, callback) {
+    constructor(listID, itemID, dir, list, callback) {
         super();
         this.listID = listID;
-		this.type = type;
-		// this.revDir = type === 1 ? -1 : 1;
+        this.itemID = itemID;
+		this.dir = dir;
 		this.updateFunction = callback;
+        this.list = list;
 	}
 
-    // async doTransaction() {
-	// 	// const { data } = await 
-    //     this.updateFunction({ variables: { _id: this.listID, type: this.type }});
-	// 	// return data;
-    // }
+    async doTransaction() {
+        console.log(this.list)
+		const { data } = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: this.dir, list: this.list }});
+		return data;
+    }
 
-    // async undoTransaction() {
-	// 	const {data} = await this.updateFunction({ variables: { _id: this.listID, type: this.type }});
-	// 	return data;
+    async undoTransaction() {
+		const {data} = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: 9, list: this.list }});
+		return data;
 
-    // }
+    }
     
 }
 
@@ -217,7 +219,6 @@ export class jsTPS {
      async doTransaction() {
 		let retVal;
         if (this.hasTransactionToRedo()) {   
-            console.log("HURRAA")
             console.log(this.hasTransactionToRedo())
             this.performingDo = true;
             let transaction = this.transactions[this.mostRecentTransaction+1];

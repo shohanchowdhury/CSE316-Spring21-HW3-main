@@ -66,7 +66,6 @@ const Homescreen = (props) => {
 
 	const tpsRedo = async () => {
 		const retVal = await props.tps.doTransaction();
-		console.log("JUMPKEDS")
 		refetchTodos(refetch);
 		return retVal;
 	}
@@ -151,16 +150,12 @@ const Homescreen = (props) => {
 
 	};
 
-	const sortList = async (type) => {
-		let listID = activeList._id;
-		// console.log(activeList)
-		// console.log(type)
+	const sortList = async (itemID, dir, list) => {
 		
-		let transaction = new SortList_Transaction(listID, type, SortListItems);
+		let listID = activeList._id;
+		let transaction = new SortList_Transaction(listID, itemID, dir, list, SortListItems);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
-
-		console.log("HOWSTHAT")
 
 	};
 

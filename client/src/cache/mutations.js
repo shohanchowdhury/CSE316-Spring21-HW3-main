@@ -70,10 +70,14 @@ export const UPDATE_ITEM_FIELD = gql`
 // 	}
 // `;
 export const SORT_LIST = gql`
-	mutation SortList($_id: String!, $type: String!) {
-		sortList(_id: $_id, type: $type) {
+	mutation SortList($_id: String!, $itemId: String!, $direction: Int!) {
+		sortList(_id: $_id, itemId: $itemId, direction: $direction) {
 			_id
-			type
+			id
+			description
+			due_date
+			assigned_to
+			completed
 		}
 	}
 `;

@@ -167,7 +167,254 @@ module.exports = {
 		},
 
 		sortList: async (_, args) => {
-			return true;
+
+			const { _id, itemId, direction, list } = args;
+			const listId = new ObjectId(_id);
+			const found = await Todolist.findOne({_id: listId});
+			const backUpList = list;
+			
+
+			let listItems = found.items;
+
+			
+			let listItems2 = []
+			let x = 0;
+			let sorted = true;
+			// move selected item visually down the list
+			if(direction === 9) {
+				const restoreBackup = list;
+				const updated = await Todolist.updateOne({_id: listId}, { items: restoreBackup })
+				if(updated) return (list);
+			}
+
+			if(direction === 1) {
+				
+				listItems.map(items => (
+					listItems2[x] = items,
+					x++
+				))
+
+				for(let i = 0; i<listItems2.length-1; i++){
+					if(listItems2[i].description>listItems2[i+1].description){
+						sorted = false;
+					}
+				}
+				if(sorted===false){
+				listItems2.sort(function(a, b) {
+					var nameA = a.description.toUpperCase(); // ignore upper and lowercase
+					var nameB = b.description.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+					
+					// names must be equal
+					return 0;
+					});
+				
+				
+					listItems = listItems2;
+				}
+				if(sorted===true){
+					listItems2.sort(function(a, b) {
+						var nameA = a.description.toUpperCase(); // ignore upper and lowercase
+						var nameB = b.description.toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return 1;
+						}
+						if (nameA > nameB) {
+							return -1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+
+
+				}
+			}
+			if(direction === 2) {
+				
+				listItems.map(items => (
+					listItems2[x] = items,
+					x++
+				))
+
+				for(let i = 0; i<listItems2.length-1; i++){
+					if(listItems2[i].due_date>listItems2[i+1].due_date){
+						sorted = false;
+					}
+				}
+				
+				if(sorted===false){
+					listItems2.sort(function(a, b) {
+						var nameA = a.due_date.toUpperCase(); // ignore upper and lowercase
+						var nameB = b.due_date.toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return -1;
+						}
+						if (nameA > nameB) {
+							return 1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+				}
+
+
+				if(sorted===true){
+					listItems2.sort(function(a, b) {
+						var nameA = a.due_date.toUpperCase(); // ignore upper and lowercase
+						var nameB = b.due_date.toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return 1;
+						}
+						if (nameA > nameB) {
+							return -1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+
+
+				}
+				
+				
+			}
+			if(direction === 3) {
+				
+				listItems.map(items => (
+					listItems2[x] = items,
+					x++
+				))
+
+				for(let i = 0; i<listItems2.length-1; i++){
+					if(JSON.stringify(listItems2[i].completed)<JSON.stringify(listItems2[i+1].completed)){
+						sorted = false;
+					}
+				}
+
+				if(sorted===false){
+					listItems2.sort(function(a, b) {
+						var nameA = JSON.stringify(a.completed).toUpperCase(); // ignore upper and lowercase
+						var nameB = JSON.stringify(b.completed).toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return 1;
+						}
+						if (nameA > nameB) {
+							return -1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+				}
+
+				if(sorted===true){
+					listItems2.sort(function(a, b) {
+						var nameA = JSON.stringify(a.completed).toUpperCase(); // ignore upper and lowercase
+						var nameB = JSON.stringify(b.completed).toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return -1;
+						}
+						if (nameA > nameB) {
+							return 1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+
+
+				}
+			}
+			if(direction === 4) {
+				
+				listItems.map(items => (
+					listItems2[x] = items,
+					x++
+				))
+
+				for(let i = 0; i<listItems2.length-1; i++){
+					if(listItems2[i].assigned_to>listItems2[i+1].assigned_to){
+						sorted = false;
+					}
+				}
+
+				if(sorted===false){
+					listItems2.sort(function(a, b) {
+						var nameA = a.assigned_to.toUpperCase(); // ignore upper and lowercase
+						var nameB = b.assigned_to.toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return -1;
+						}
+						if (nameA > nameB) {
+							return 1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+				}
+
+				if(sorted===true){
+					listItems2.sort(function(a, b) {
+						var nameA = a.assigned_to.toUpperCase(); // ignore upper and lowercase
+						var nameB = b.assigned_to.toUpperCase(); // ignore upper and lowercase
+						if (nameA < nameB) {
+							return 1;
+						}
+						if (nameA > nameB) {
+							return -1;
+						}
+						
+						// names must be equal
+						return 0;
+						});
+					
+					
+					listItems = listItems2;
+
+
+				}
+			}
+				
+			
+			// move selected item visually up the list
+			else if(direction === -1 && index > 0) {
+				// let prev = listItems[index - 1];
+				// let current = listItems[index]
+				// listItems[index - 1] = current;
+				// listItems[index] = prev;
+			}
+			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
+			if(updated) return (listItems);
+			// return old ordering if reorder was unsuccessful
+			listItems = found.items;
+			return (found.items);
+
 		},
 		
 
