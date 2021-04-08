@@ -167,11 +167,12 @@ module.exports = {
 		},
 
 		sortList: async (_, args) => {
+			
 
-			const { _id, itemId, direction, list } = args;
+			const { _id, itemId, direction, itemList} = args;
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
-			const backUpList = list;
+			let backup = itemList;
 			
 
 			let listItems = found.items;
@@ -180,13 +181,22 @@ module.exports = {
 			let listItems2 = []
 			let x = 0;
 			let sorted = true;
-			// move selected item visually down the list
-			if(direction === 9) {
-				const restoreBackup = list;
-				const updated = await Todolist.updateOne({_id: listId}, { items: restoreBackup })
-				if(updated) return (list);
+
+			if(direction >= 5) {
+				
+				
+				let order = direction.toString()
+				for(let x=0; x<order.length-1; x++){
+					listItems2[x] = listItems[order[x+1]]
+				}
+
+				listItems = listItems2;
+
+
 			}
 
+			
+	
 			if(direction === 1) {
 				
 				listItems.map(items => (
@@ -400,7 +410,7 @@ module.exports = {
 
 				}
 			}
-				
+			
 			
 			// move selected item visually up the list
 			else if(direction === -1 && index > 0) {

@@ -49,24 +49,42 @@ export class ReorderItems_Transaction extends jsTPS_Transaction {
 }
 
 export class SortList_Transaction extends jsTPS_Transaction {
-    constructor(listID, itemID, dir, list, callback) {
+    constructor(listID, itemID, dir, listItems, callback) {
         super();
         this.listID = listID;
         this.itemID = itemID;
 		this.dir = dir;
 		this.updateFunction = callback;
-        this.list = list;
+        this.listItems = (listItems);
+        this.x = "9"
+        this.listItems.map(items => (
+            this.x = this.x + items.id
+        ))
+        //console.log(x);
+        this.x = parseInt(this.x)
+        if(dir>=5){
+            this.dir = this.x;
+        }
+        console.log(this.x);
 	}
 
     async doTransaction() {
-        console.log(this.list)
-		const { data } = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: this.dir, list: this.list }});
+        console.log(this.listItems)
+		const { data } = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: this.dir, itemList: this.listItems }});
 		return data;
     }
 
     async undoTransaction() {
-		const {data} = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: 9, list: this.list }});
-		return data;
+
+        
+        console.log("BEFOREEEE")
+        console.log(this.x)
+      
+        
+
+		const {data} = await this.updateFunction({ variables: { itemId: this.itemID, _id: this.listID, direction: this.dir, itemList: this.listItems }});
+		console.log(data)
+        return data;
 
     }
     

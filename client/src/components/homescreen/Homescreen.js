@@ -150,10 +150,11 @@ const Homescreen = (props) => {
 
 	};
 
-	const sortList = async (itemID, dir, list) => {
+	const sortList = async (itemID, dir, listItems) => {
 		
 		let listID = activeList._id;
-		let transaction = new SortList_Transaction(listID, itemID, dir, list, SortListItems);
+		console.log(listItems)
+		let transaction = new SortList_Transaction(listID, itemID, dir, listItems, SortListItems);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 

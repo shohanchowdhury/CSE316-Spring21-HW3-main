@@ -47,6 +47,29 @@ const TableHeader = (props) => {
     // console.log(listItems);
 
 
+    // let listItems1 = props.activeList.items
+    // console.log(listItems1)
+
+
+    // let order = "902431";
+    // x = 1;
+    // let listItems2 = []
+
+    // if(listItems1){
+    //     for(x=0; x<order.length-1; x++){
+    //         listItems2[x] = listItems1[order[x+1]]
+    //     }
+    // }
+
+
+    // if(listItems1){
+    //     console.log(props.activeList.items)
+    //     for (x = 1; order.length-1; x++){
+    //         listItems2[x] = listItems1[order[x]]
+    //     }
+    // }
+    // console.log(listItems2);
+
 
  
     
