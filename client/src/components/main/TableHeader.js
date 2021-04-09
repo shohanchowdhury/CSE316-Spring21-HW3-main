@@ -71,27 +71,36 @@ const TableHeader = (props) => {
     // console.log(listItems2);
 
 
-    
 
     // onClick={() =>flagHighest? '' : props.reorderItem(
+
+    function checkIfListAndMoreOne(){
+        if(props.activeList.items){
+            if(props.activeList.items[1]){
+                return true;
+            }
+        }
+        return false;
+    }
+
  
     
     return (
         <WRow className="table-header">
             <WCol size="3">
-                <WButton className='table-header-section' wType="texted" onClick={() =>props.activeList.items? props.sortList(props.activeList.items[0]._id,1,props.activeList.items) :''}>Task</WButton>
+                <WButton className='table-header-section' wType="texted" onClick={() =>checkIfListAndMoreOne()? props.sortList(props.activeList.items[0]._id,1,props.activeList.items) :''}>Task</WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton className='table-header-section' wType="texted" onClick={() =>props.activeList.items? props.sortList(props.activeList.items[0]._id,2,props.activeList.items) :''}>Due Date</WButton>
+                <WButton className='table-header-section' wType="texted" onClick={() =>checkIfListAndMoreOne()? props.sortList(props.activeList.items[0]._id,2,props.activeList.items) :''}>Due Date</WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton className='table-header-section' wType="texted" onClick={() =>props.activeList.items? props.sortList(props.activeList.items[0]._id,3,props.activeList.items) :''}>Status</WButton>
+                <WButton className='table-header-section' wType="texted" onClick={() =>checkIfListAndMoreOne()? props.sortList(props.activeList.items[0]._id,3,props.activeList.items) :''}>Status</WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton className='table-header-section' wType="texted" onClick={() =>props.activeList.items? props.sortList(props.activeList.items[0]._id,4,props.activeList.items) :''}>Assigned To</WButton>
+                <WButton className='table-header-section' wType="texted" onClick={() =>checkIfListAndMoreOne()? props.sortList(props.activeList.items[0]._id,4,props.activeList.items) :''}>Assigned To</WButton>
             </WCol>
 
             <WCol size="3">
