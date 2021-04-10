@@ -103,7 +103,7 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="2">
+            <WCol size="3">
                 {
                     editingAssignedTo
                     ?
@@ -122,7 +122,7 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="3">
+            <WCol size="2">
                 <div className='button-group'>
                     <WButton className="table-entry-buttons" onClick={() =>flagHighest? '' : props.reorderItem(data._id, -1)} wType="texted"
                     
