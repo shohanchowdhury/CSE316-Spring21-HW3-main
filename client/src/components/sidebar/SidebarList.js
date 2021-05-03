@@ -39,14 +39,10 @@ const SidebarList = (props) => {
     }
     
 
-    //console.log(props.activeid)
-
-    
-
 
     return (
-        <>
-            {   
+        <div>
+            {   (JSON.stringify(props.activeList)==="{}")?
                 
                 // props.todolists &&
                 // props.todolists.map(todo => (
@@ -62,15 +58,18 @@ const SidebarList = (props) => {
                     <SidebarEntry
                         handleSetActive={props.handleSetActive} activeid={props.activeid}
                         id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
-                        updateListField={props.updateListField}
+                        updateListField={props.updateListField} setShowDelete={props.setShowDelete}
                     />
                 ))
 
     
-               
+               :
+               <div>
+
+               </div>
         
             }
-        </>
+        </div>
     );
 };
 

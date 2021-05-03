@@ -31,7 +31,7 @@ export const LOGOUT = gql`
 
 export const EDITACCOUNT = gql`
 	mutation Editaccount($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
-		editAccount(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
+		editaccount(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
 			email
 			password
 			firstName

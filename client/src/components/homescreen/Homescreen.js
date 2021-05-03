@@ -35,6 +35,7 @@ const Homescreen = (props) => {
 	const [loggedIn, toggleLoggedIn]		= useState(false);
 
 	const [currentUser, currentUserSet]		=useState(null);
+	const [currentList, currentListSet]		=useState(null);
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
@@ -195,7 +196,7 @@ const Homescreen = (props) => {
 		await refetchTodos(refetch);
 		if(data) {
 		let _id = data.addTodolist;
-		handleSetActive(_id);
+		//handleSetActive(_id);
 		} 
 	};
 
@@ -268,6 +269,9 @@ const Homescreen = (props) => {
 	const getUser = () =>{
 		return currentUser;
 	}
+	const getActiveList = () =>{
+		return activeList;
+	}
 	
 
 
@@ -299,10 +303,11 @@ const Homescreen = (props) => {
 				
 				
 			</WLHeader>
-
-	
-			{/* <WLSide side="left">
-				<WSidebar>
+			{
+			loggedIn && JSON.stringify(activeList)==="{}"?
+			<div className="wsidebar">
+				<div className = "header-map-modal"> Your Maps</div>
+				<img src={Globe} alt="Logo"  className="photo2"/>
 					{
 						activeList ?
 							<SidebarContents
@@ -312,12 +317,22 @@ const Homescreen = (props) => {
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}
+								getActiveList={getActiveList}
+								setShowDelete={setShowDelete}
+
 							/>
 							:
 							<></>
 					}
-				</WSidebar>
-			</WLSide> */}
+				<div className="createMapBig">
+					<span className ="createMapB"  onClick={createNewList} > Create New Map</span>
+
+				</div>
+				
+			</div>
+			:
+			<div></div>
+			}
 			
 			<WLMain>
 
@@ -343,12 +358,15 @@ const Homescreen = (props) => {
 										setShowDelete={setShowDelete}
 										sortList={sortList}
 										loggerOuting={loggerOuting}
-
 										activeList={activeList} setActiveList={setActiveList}
 										setShowEdit={setShowEdit} showEdit={showEdit}
 										undo={tpsUndo} redo={tpsRedo}
 										hasUndo={hasUndo} hasRedo={hasRedo}
 										resetTps={resetTps}
+										todolists={todolists} 
+										activeid={activeList.id} auth={auth}
+										handleSetActive={handleSetActive} createNewList={createNewList}
+										updateListField={updateListField}
 
 									/>
 								</div>

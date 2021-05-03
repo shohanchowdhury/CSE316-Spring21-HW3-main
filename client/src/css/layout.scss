@@ -46,7 +46,16 @@ h1 {
 }
 
 .wsidebar {
-    scrollbar-width: thin;
+   
+    position: absolute;
+    left: 550px;
+    top: 120px;
+    height: 800px;
+    width: 800px;
+    color: rgb(219, 173, 173);
+    background-color: rgb(189, 121, 121);
+    
+
 }
 
 .list-text {
@@ -129,14 +138,7 @@ h1 {
     align-items: center;
 }
 
-.sidebar-header {
-    width: calc(100% - 48px);
-    box-sizing: border-box;
-    margin-left: 24px;
-    margin-right: 24px;
-    padding-top: 24px;
-    padding-bottom: 12px
-}
+
 
 .sidebar-options {
     height: 100%;
@@ -215,6 +217,7 @@ h1 {
     padding-top: 18px;
     padding-left: 135px;
 }
+
 .emailText{
     color: azure;
     position: absolute;
@@ -228,6 +231,7 @@ h1 {
     padding-top: 150px;
     padding-left: 105px;
 }
+
 .emailText1{
     color: azure;
     position: absolute;
@@ -241,6 +245,64 @@ h1 {
     padding-top: 75px;
     padding-left: 35px;
 }
+.nameTextEdit{
+    color: azure;
+    position: absolute;
+    padding-top: 0px;
+    padding-left: 45px;
+}
+.emailTextEdit{
+    color: azure;
+    position: absolute;
+    padding-top: 57px;
+    padding-left: 45px;
+}
+.passwordTextEdit{
+    color: azure;
+    position: absolute;
+    padding-top: 115px;
+    padding-left:15px;
+}
+.nameInputEdit{
+    top: -18px;
+    width: 350px;
+    left: 100px;
+}
+.emailInputEdit{
+    top: -8px;
+
+    width: 104%;
+    left: -18px;
+}
+.passwordInputEdit{
+    top: -8px;
+    width: 104%;
+    left: -18px;
+}
+.submitEdit{
+ 
+    background-color: rgb(167, 167, 167);
+    
+    top: 280px;
+    left: 45px;
+    padding-top: 12px;
+    padding-left: 80px;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    height:40px;
+    width: 200px;
+}
+.cancelEdit{
+    background-color: rgb(167, 167, 167);
+    top: 280px;
+    position: absolute;
+    left: 265px;
+    padding-left: 60px;
+    padding-top: 12px;
+    height:40px;
+    width: 200px;
+}
+
 .loginLogin{
  
     background-color: rgb(167, 167, 167);
@@ -272,6 +334,10 @@ h1 {
 
 .main-login-modal {
     padding: 24px 250px 0px 24px;
+}
+.edit-modal {
+    background-color: black;
+    height: 350px;
 }
 
 .emailInputLogin{
@@ -329,4 +395,92 @@ h1 {
     padding-left: 0px !important;
     padding-right: 0px !important;
     //font-size: 1.125rem;
+}
+
+.main-map-modal{
+    display:none;
+
+    position: absolute;
+    left: 550px;
+    top: 120px;
+    height: 800px;
+    width: 800px;
+    
+    color: black;
+    background-color: rgb(0, 0, 0);
+
+}
+
+.header-map-modal{
+    position: absolute;
+    width: 800px;
+    height: 30px;
+    top: 00px;
+    padding-left: 350px;
+
+    background-color: rgb(255, 60, 0);
+    color: black;
+    font-size: 20px;
+    
+}
+
+.createNewMap{
+    top: 0px;
+    left: 765px;
+    height: 30px;
+    width: 30px;
+    padding-left: 3px;
+    color: blue;
+}
+.mapEach{
+    position: absolute;
+    padding-top: 300px;
+    top: 300px;
+}
+.mapEachText{
+    padding-top: 40px;
+    color: black ;
+}
+.mapTile{
+    width: 300px;
+}
+.mapTileClicker{
+    width: 300px;
+}
+.deleteMapButton{
+    position: absolute;
+    left: 300px;
+}
+.editMapButton{
+    position: absolute;
+    left: 270px;
+}
+.photo2{
+    position: absolute;
+    background-color: cornsilk;
+    left: 370px;
+    top: 200px;
+    height: 50%;
+    width: 50%;
+}
+// .createMapBig{
+//     width: 400px;
+//     height: 400px;
+//     color: black;
+//     background-color: rgb(255, 32, 32);
+// }
+
+.createMapB{
+    position: absolute;
+    font-size: 20px;
+    padding-left: 120px;
+    padding-top: 12px;
+    left: 369px;
+    top: 595px;
+    height: 50px;
+    width: 399px;
+    color: black;
+    background-color: rgb(255, 32, 32);
+
+
 }

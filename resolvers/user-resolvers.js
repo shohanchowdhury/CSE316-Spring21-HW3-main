@@ -87,7 +87,7 @@ module.exports = {
 		},
 
 		editaccount: async (_, args, { res }) => {
-			const { email, password, firstName, lastName, originalEmail } = args;
+			const { email, password, firstName, lastName } = args;
 			const alreadyRegistered = await User.findOne({email: email});
 			// if(alreadyRegistered) {
 			// 	console.log('User with that email already registered.');
@@ -99,18 +99,21 @@ module.exports = {
 			// 		password: '',
 			// 		initials: ''}));
 			// }
+			const previousRegistered = await User.findOne({email: lastName});
 			const hashed = await bcrypt.hash(password, 10);
 			const _id = new ObjectId();
 			const user = new User({
-				_id: _id,
+				_id: previousRegistered._id,
 				firstName: firstName,
 				lastName: lastName,
 				email: email, 
 				password: hashed,
 				initials: `${firstName[0]}.${lastName[0]}.`
 			})
-			const saved = await User.updateOne({email: originalEmail},{firstName:firstName});			// After registering the user, their tokens are generated here so they
+			const saved = await User.updateOne({email: lastName},{email: email});			// After registering the user, their tokens are generated here so they
 			// are automatically logged in on account creation.
+			const saved2 = await User.updateOne({email: email},{firstName: firstName});
+			const saved3 = await User.updateOne({email: email},{password: hashed});
 			const accessToken = tokens.generateAccessToken(user);
 			const refreshToken = tokens.generateRefreshToken(user);
 			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 

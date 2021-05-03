@@ -35,11 +35,11 @@ const MainContents = (props) => {
         
     }
 
+
     useKey("KeyZ", handleZ);
     useKey("KeyY", handleY);
    
 
-    
         
     return (
         <div className='table ' >
@@ -51,6 +51,7 @@ const MainContents = (props) => {
                 hasUndo={props.hasUndo}  hasRedo={props.hasRedo}
                 resetTps={props.resetTps}
                 activeList={props.activeList}
+                createNewList={props.createNewList}
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}

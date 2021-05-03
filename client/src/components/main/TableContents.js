@@ -3,6 +3,7 @@ import TableEntry   from './TableEntry';
 
 const TableContents = (props) => {
 
+    console.log(props.activeList);
     const entries = props.activeList ? props.activeList.items : null;
     return (
         entries ? <div className=' table-entries container-primary'>

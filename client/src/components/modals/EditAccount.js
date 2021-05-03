@@ -27,7 +27,7 @@ const EditAccount = (props) => {
 		const updated = { ...input, [name]: value };
 		updated.lastName = " ";
 		console.log(updated.lastName);
-		updated.originalEmail = currentUser.email;
+		updated.lastName = currentUser.email;
 		setInput(updated);
 	};
 
@@ -86,37 +86,43 @@ const EditAccount = (props) => {
 			{
 				loading ? <div />
 					: <WMMain>
-						<WRow className="modal-col-gap signup-modal">
-							<WCol size="6">
+						<div class ="nameTextEdit">
+							Name:
+						</div>
+						<div class ="emailTextEdit">
+							Email:
+						</div>
+						<div class ="passwordTextEdit">
+							Password:
+						</div>
+							
 								<WInput 
-									className="" onBlur={updateInput} name="firstName" labelAnimation="up" 
-									barAnimation="solid" labelText={props.user} wType="outlined" inputType="text" 
+									className="nameInputEdit" onBlur={updateInput} name="firstName" labelAnimation="up" 
+									barAnimation="solid" labelText={currentUser.firstName} wType="outlined" inputType="text" 
 								/>
-							</WCol>
-							<WCol size="6">
+						
+							{/* <WCol size="6">
 								<WInput 
 									className="" onBlur={updateInput} name="lastName" labelAnimation="up" 
 									barAnimation="solid" labelText="Last Name" wType="outlined" inputType="text" 
 								/>
-							</WCol>
-						</WRow>
+							</WCol> */}
 
-						<div className="modal-spacer">&nbsp;</div>
 						<WInput 
-							className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
-							barAnimation="solid" labelText="Email Address" wType="outlined" inputType="text" 
+							className="modal-input emailInputEdit" onBlur={updateInput} name="email" labelAnimation="up" 
+							barAnimation="solid" labelText={currentUser.email} wType="outlined" inputType="text" 
 						/>
 						<div className="modal-spacer">&nbsp;</div>
 						<WInput 
-							className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
-							barAnimation="solid" labelText="Password" wType="outlined" inputType="password" 
+							className="modal-input passwordInputEdit" onBlur={updateInput} name="password" labelAnimation="up" 
+							barAnimation="solid" labelText="*Password*" wType="outlined" inputType="password" 
 						/>
 					</WMMain>
 			}
-				<span className="modal-button" onClick={handleEditAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+				<span className="modal-button submitEdit" onClick={handleEditAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 					Submit
 				</span>
-				<span className="modal-button cancelCreate2" onClick={cancelCreate1} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+				<span className="modal-button cancelEdit" onClick={cancelCreate1} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 					Cancel
 				</span>
 		</WModal >

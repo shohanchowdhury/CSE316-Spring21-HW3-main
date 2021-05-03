@@ -76,13 +76,14 @@ const TableEntry = (props) => {
 
             <WCol size="2">
                 {
-                    editingDate ? <input
+                    editingDate  || due_date === ''
+                        ? <WInput
                         className='table-input' onBlur={handleDateEdit}
-                        autoFocus={true} defaultValue={due_date} type='date'
+                        autoFocus={true} defaultValue={due_date} type='text'
                         wType="outlined" barAnimation="solid" inputClass="table-input-class"
-                    />
+                        />
                         : <div className="table-text"
-                            onClick={() => toggleDateEdit(!editingDate)}
+                        onClick={() => toggleDateEdit(!editingDescr)}
                         >{due_date}
                         </div>
                 }
@@ -90,16 +91,19 @@ const TableEntry = (props) => {
 
             <WCol size="2">
                 {
-                    editingStatus ? <select
-                        className='table-select' onBlur={handleStatusEdit}
-                        autoFocus={true} defaultValue={status}
-                    >
-                        <option value="complete">complete</option>
-                        <option value="incomplete">incomplete</option>
-                    </select>
-                        : <div onClick={() => toggleStatusEdit(!editingStatus)} className={`${completeStyle} table-text`}>
-                            {status}
-                        </div>
+               
+                    editingStatus  || status === ''
+                    ? <WInput
+                    className='table-input' onBlur={handleStatusEdit}
+                    autoFocus={true} defaultValue={status} type='text'
+                    wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                    />
+                    : <div className="table-text"
+                    onClick={() => toggleStatusEdit(!editingStatus)}
+                    >{status}
+                    </div>
+
+
                 }
             </WCol>
 
@@ -144,6 +148,7 @@ const TableEntry = (props) => {
                 </div>
             </WCol>
         </WRow>
+        // <div className="HEYO">BIG BOT</div>
     );
 };
 
