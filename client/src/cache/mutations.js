@@ -29,6 +29,17 @@ export const LOGOUT = gql`
 	}
 `;
 
+export const EDITACCOUNT = gql`
+	mutation Editaccount($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
+		editAccount(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
+			email
+			password
+			firstName
+			lastName
+		}
+	}
+`;
+
 export const ADD_ITEM = gql`
 	mutation AddItem($item: ItemInput!, $_id: String!, $index: Int!) {
 		addItem(item: $item, _id: $_id, index: $index)

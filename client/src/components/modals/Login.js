@@ -33,23 +33,32 @@ const Login = (props) => {
 			props.setShowLogin(false)
 		};
 	};
+	const handleCancel = (e) => {
+		props.setShowLogin(false);
+	}
 
 
 	return (
         // Replace div with WModal
 
-		<WModal  className="login-modal" visible={showLogin} cover={true}>
+		<WModal  className="login-modal " visible={showLogin} cover={true}>
 			<WMHeader className="modal-header" onClose={() => props.setShowLogin(false)}>
 				Login
 			</WMHeader>
 
 			{
 				loading ? <div />
-					: <WMMain  className="main-login-modal">
+					: <WMMain  className="main-login-modal loginModal">
+						<div class ="emailText1">
+							Email:
+						</div>
+						<div class ="passwordText1">
+							Password:
+						</div>
 
-						<WInput className="modal-input" onBlur={updateInput} name='email' labelAnimation="up" barAnimation="solid" labelText="Email Address" wType="outlined" inputType='text' />
+						<WInput className="modal-input2" onBlur={updateInput} name='email' labelAnimation="up" barAnimation="solid" labelText="*Enter Email Here*" wType="outlined" inputType='text' />
 						<div className="modal-spacer">&nbsp;</div>
-						<WInput className="modal-input" onBlur={updateInput} name='password' labelAnimation="up" barAnimation="solid" labelText="Password" wType="outlined" inputType='password' />
+						<WInput className="modal-input2" onBlur={updateInput} name='password' labelAnimation="up" barAnimation="solid" labelText="*Enter Password Here*" wType="outlined" inputType='password' />
 
 						{
 							showErr ? <div className='modal-error'>
@@ -61,9 +70,13 @@ const Login = (props) => {
 					</WMMain >
 			}
 			<WMFooter>
-				<WButton className="modal-button" onClick={handleLogin} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+				<span className="modal-button loginLogin" onClick={handleLogin} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 					Login
-				</WButton>
+				</span>
+				<span className="modal-button cancelLogin" onClick={handleCancel} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+					Cancel
+				</span>
+				
 			</WMFooter>
 		</WModal>
 	);

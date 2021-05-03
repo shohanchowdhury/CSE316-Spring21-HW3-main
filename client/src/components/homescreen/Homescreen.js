@@ -6,11 +6,14 @@ import SidebarContents 					from '../sidebar/SidebarContents';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
 import CreateAccount 					from '../modals/CreateAccount';
+import EditAccount						from '../modals/EditAccount';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
+import { GET_DB_USER } 				from '../../cache/queries';
+import Globe from './Globe.png';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction,
@@ -28,6 +31,10 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showEdit, toggleShowEdit]		= useState(false);
+	const [loggedIn, toggleLoggedIn]		= useState(false);
+
+	const [currentUser, currentUserSet]		=useState(null);
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
@@ -40,12 +47,21 @@ const Homescreen = (props) => {
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
-	if(loading) { console.log(loading, 'loading'); }
+	// if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { todolists = data.getAllTodos; }
+	
+	const a = "assd";
+	let user = null;
+	var {data2 } = useQuery(GET_DB_USER);
+    if(data2) { user = data2.getCurrentUser; }
+	if(user){console.log(user.email); }
+    console.log(user)
+
 
 
 	const auth = props.user === null ? false : true;
+
 
 	
 
@@ -214,6 +230,7 @@ const Homescreen = (props) => {
 		toggleShowDelete(false);
 		toggleShowCreate(false);
 		toggleShowLogin(!showLogin);
+		toggleLoggedIn(true);
 	};
 
 	const setShowCreate = () => {
@@ -226,9 +243,37 @@ const Homescreen = (props) => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
 		toggleShowDelete(!showDelete)
+	};
+
+	const setShowEdit = () => {
+		// console.log("ASDASDSAD")
+		toggleShowDelete(false);
+		toggleShowLogin(false);
+		toggleShowEdit(!showEdit);
+	};
+
+	const dosomething = () => {
+		console.log("ASDASDSDASD")
+	};
+
+	const loggerOuting = () =>{
+		toggleLoggedIn(false);
+	};
+
+	const updateUser = (e) =>{
+		user = e;
+		console.log(user)
+		currentUserSet(e)
 	}
+	const getUser = () =>{
+		return currentUser;
+	}
+	
+
+
 
 	return (
+		
 		<WLayout wLayout="header-lside">
 			<WLHeader>
 				<WNavbar color="colored">
@@ -239,16 +284,24 @@ const Homescreen = (props) => {
 					</ul>
 					<ul>
 						<NavbarOptions
+							loggerOuting={loggerOuting}
 							fetchUser={props.fetchUser} auth={auth} 
+							user={user}
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
+							setShowEdit={dosomething} setShowEdit={setShowEdit}
 							refetchTodos={refetch} setActiveList={setActiveList}
+							loggerOuting={loggerOuting}
+							updateUser={updateUser}
 						/>
 					</ul>
 				</WNavbar>
+
+				
 				
 			</WLHeader>
 
-			<WLSide side="left">
+	
+			{/* <WLSide side="left">
 				<WSidebar>
 					{
 						activeList ?
@@ -264,27 +317,50 @@ const Homescreen = (props) => {
 							<></>
 					}
 				</WSidebar>
-			</WLSide>
+			</WLSide> */}
+			
 			<WLMain>
-				{
-					activeList ? 
-							<div className="container-secondary">
-								<MainContents
-									addItem={addItem} deleteItem={deleteItem}
-									editItem={editItem} reorderItem={reorderItem}
-									setShowDelete={setShowDelete}
-									sortList={sortList}
-									activeList={activeList} setActiveList={setActiveList}
-									undo={tpsUndo} redo={tpsRedo}
-									hasUndo={hasUndo} hasRedo={hasRedo}
-									resetTps={resetTps}
 
-								/>
-							</div>
-						:
-							<div className="container-secondary" />
+			
+				{!loggedIn ?
+					<div className="welcome">
+
+						<img src={Globe} alt="Logo"  className="photo" />
+						{/* <div classname="welcomeText">
+							Welcome To The World Data Mapper
+						</div> */}
+						<h1>Welcome To The World Data Mapper</h1>
+						<h1>{user}</h1>
+					</div>
+				:
+					<div>
+							{
+						activeList ? 
+								<div className="container-secondary">
+									<MainContents
+										addItem={addItem} deleteItem={deleteItem}
+										editItem={editItem} reorderItem={reorderItem}
+										setShowDelete={setShowDelete}
+										sortList={sortList}
+										loggerOuting={loggerOuting}
+
+										activeList={activeList} setActiveList={setActiveList}
+										setShowEdit={setShowEdit} showEdit={showEdit}
+										undo={tpsUndo} redo={tpsRedo}
+										hasUndo={hasUndo} hasRedo={hasRedo}
+										resetTps={resetTps}
+
+									/>
+								</div>
+							:
+								<div className="container-secondary" />
+					}
+			
+
+					</div>
 				}
 
+				
 			</WLMain>
 
 			{
@@ -298,6 +374,21 @@ const Homescreen = (props) => {
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={refetch}setShowLogin={setShowLogin} />)
 			}
+
+			{
+				showEdit && (<EditAccount  fetchUser={props.fetchUser} setShowEdit={setShowEdit} user={user} getUser={getUser}/>)
+			}
+
+
+			
+			
+			
+			
+
+			
+
+			
+
 
 		</WLayout>
 	);

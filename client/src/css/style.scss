@@ -1,7 +1,7 @@
 @use 'node_modules/wt-frontend/build/global/theme' with (
     $primary-color: #ffc800,
-    $background-color: rgb(64, 69, 78),//#d9d6cc,
-    $navbar-background-color: #353a44,//rgb(64, 69, 78),
+    $background-color: rgb(44, 44, 44),//#d9d6cc,
+    $navbar-background-color: #010a1d,//rgb(64, 69, 78),
     $sidebar-background-color: #2b2e36,//#353a44,
     $text-color: #e9edf0,
     $modal-background: rgb(64, 69, 78),
@@ -74,7 +74,7 @@ html, body {
 }
 
 .logo {
-	color: $primary-color;
+	color: #FF5100;
     font-size: 1.5rem;
     font-family: "Roboto Mono", monospace;
     text-transform: uppercase;

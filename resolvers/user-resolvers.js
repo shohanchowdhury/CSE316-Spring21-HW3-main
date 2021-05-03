@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user-model');
 const tokens = require('../utils/tokens');
 
+
+
 module.exports = {
 	Query: {
 		/** 
@@ -82,6 +84,40 @@ module.exports = {
 			res.clearCookie('refresh-token');
 			res.clearCookie('access-token');
 			return true;
-		}
+		},
+
+		editaccount: async (_, args, { res }) => {
+			const { email, password, firstName, lastName, originalEmail } = args;
+			const alreadyRegistered = await User.findOne({email: email});
+			// if(alreadyRegistered) {
+			// 	console.log('User with that email already registered.');
+			// 	return(new User({
+			// 		_id: '',
+			// 		firstName: '',
+			// 		lastName: '',
+			// 		email: 'already exists', 
+			// 		password: '',
+			// 		initials: ''}));
+			// }
+			const hashed = await bcrypt.hash(password, 10);
+			const _id = new ObjectId();
+			const user = new User({
+				_id: _id,
+				firstName: firstName,
+				lastName: lastName,
+				email: email, 
+				password: hashed,
+				initials: `${firstName[0]}.${lastName[0]}.`
+			})
+			const saved = await User.updateOne({email: originalEmail},{firstName:firstName});			// After registering the user, their tokens are generated here so they
+			// are automatically logged in on account creation.
+			const accessToken = tokens.generateAccessToken(user);
+			const refreshToken = tokens.generateRefreshToken(user);
+			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			return user;
+		},
+
+		
 	}
 }
