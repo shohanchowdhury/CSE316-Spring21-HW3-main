@@ -12,12 +12,18 @@ const TableEntry = (props) => {
     const assignedTo = data.assigned_to;
 
     const [leader, setLeader] = useState("");
-    const [landmarks, setLandmarks] = useState("");
+    const [landmark, setLandmark] = useState("");
+    const [flag, setFlag] = useState("");
 
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
     const [editingAssignedTo, toggleAssignedToEdit] = useState(false);
+    const [editingLand, toggleLandEdit] = useState(false);
+    const [editingFlag, toggleFlagEdit] = useState(false);
+
+
+
 
     let flagHighest = false;
     let flagLowest = false;
@@ -54,6 +60,16 @@ const TableEntry = (props) => {
         props.editItem(data._id, 'assigned_to', newAssignedTo, prevAssignedTo);
     };
 
+    const handleLandEdit = (e) => {
+        toggleLandEdit(false);
+        
+        const newLandmark = e.target.value ? e.target.value : ''
+        const prevLandmark = landmark;
+        setLandmark( e.target.value);
+    };
+
+   
+
     let listItems = props.activeList
     // console.log(listItems.items[0]._id)
     if(listItems.items[0]._id===data._id){
@@ -65,7 +81,10 @@ const TableEntry = (props) => {
     //console.log(flagHighest,flagLowest)
     return (
         <WRow className='table-entry'>
-            <WCol size="3">
+             <WButton className="table-entry-buttons deleteRegionButton" onClick={() => props.deleteItem(data, props.index)} wType="texted">
+                        <i className="material-icons">close</i>
+            </WButton>
+            <WCol size="2" className="descCol">
                 {
                     editingDescr || description === ''
                         ? <WInput
@@ -80,7 +99,7 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="2">
+            <WCol size="1" className="capitalCol">
                 {
                     editingDate  || due_date === ''
                         ? <WInput
@@ -95,9 +114,9 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="2">
+            <WCol size="1"  className="leaderCol">
                 {
-                    editingStatus || status === ' ' ?
+                    editingStatus?
                      <WInput
                         className='table-select' onBlur={handleStatusEdit}
                         autoFocus={true} defaultValue={leader} type='text'
@@ -111,13 +130,13 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="3">
+            <WCol size="1"  className="flagCol">
                 {
                     editingAssignedTo || assignedTo === ''
                     ?
                     <WInput
                     className='table-input' onBlur={handleAssignedToEdit}
-                    defaultValue={assignedTo} type='text'
+                    defaultValue={""} type='text'
                     wType="outlined" barAnimation="solid" inputClass="table-input-class" 
                     
                     />
@@ -128,9 +147,24 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
+            <WCol size="1" className="landmarksCol">
+                {
+                    landmark === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleLandEdit}
+                            autoFocus={true} defaultValue={landmark} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className="table-text"
+                            onClick={() => toggleLandEdit(!editingLand)}
+                        >{landmark}
+                        </div>
+                }
+            </WCol>
+
             <WCol size="2">
                 <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() =>flagHighest? '' : props.reorderItem(data._id, -1)} wType="texted"
+                    {/* <WButton className="table-entry-buttons" onClick={() =>flagHighest? '' : props.reorderItem(data._id, -1)} wType="texted"
                     
                     style={{
                             color: flagHighest? '#313134' : ''
@@ -143,10 +177,10 @@ const TableEntry = (props) => {
                       }}
                     >
                         <i className="material-icons">expand_more</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data, props.index)} wType="texted">
+                    </WButton> */}
+                    {/* <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data, props.index)} wType="texted">
                         <i className="material-icons">close</i>
-                    </WButton>
+                    </WButton> */}
                 </div>
             </WCol>
         </WRow>

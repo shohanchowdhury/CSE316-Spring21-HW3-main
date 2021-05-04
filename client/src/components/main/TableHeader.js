@@ -54,7 +54,10 @@ const TableHeader = (props) => {
     return (
         <div >
             {(JSON.stringify(props.activeList)!="{}")?
+            
             <div className= "bigBox">
+                 <div className="tempo"></div>
+
             <WRow className="table-header">
                 <WCol size="2">
                     <WButton className='table-header-section' wType="texted" onClick={() =>checkIfListAndMoreOne()? props.sortList(props.activeList.items[0]._id,1,props.activeList.items) :''}>Name</WButton>

@@ -486,8 +486,8 @@ h1 {
 .addTable{
     position: absolute;
     font-size: 35px;
-    top: 100px;
-    left: 260px;
+    top: 90px;
+    left: 255px;
 }
 
 .table-header-section{
@@ -496,5 +496,64 @@ h1 {
 }
 .closeTable{
     position: absolute;
-    left: 100px;
+    font-size: 35px;
+    top: 90px;
+    left: 220px;
+}
+.undoTable{
+    position: absolute;
+    font-size: 35px;
+    top: 90px;
+    left: 140px;
+}
+.redoTable{
+    position: absolute;
+    font-size: 35px;
+    top: 90px;
+    left: 180px;
+}
+.descCol{
+    position: absolute;
+    size: 300px;
+}
+.capitalCol{
+    position: absolute;
+    size: 300px;
+    left: 520px;
+}
+.leaderCol{
+    position: absolute;
+    size: 300px;
+    width: 200px;
+    height: 32px;
+    left: 740px;
+}
+.flagCol{
+    position: absolute;
+    size: 300px;
+    left: 1000px;
+}
+.landmarksCol{
+    position: absolute;
+    size: 300px;
+    left: 1300px;
+}
+
+.deleteRegionButton{
+    position: absolute;
+    left: 245px;
+}
+
+.bigBox{
+    width: 1600px;
+    background-color: crimson;
+}
+
+.tempo{
+    position: absolute;
+    width: 300px;
+    height: 65px;
+    left: -15px;
+    background-color: crimson;
+
 }
