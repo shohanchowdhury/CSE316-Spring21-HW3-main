@@ -79,25 +79,25 @@ const TableHeader = (props) => {
                 <WCol size="3">
                     <div className="table-header-buttons">
                         
-                        <WButton style={{
+                        <span style={{
                                 color: props.hasUndo()? 'white' : '#313134'
                             }}  onClick={props.disabled ? clickDisabled : props.undo} wType="texted" className={`${buttonStyle}`}>
-                            <i className="material-icons">undo</i>
-                        </WButton>
-                        <WButton style={{
+                            <i className="material-icons undoTable">undo</i>
+                        </span>
+                        <span style={{
                                 color: props.hasRedo()? 'white' : '#313134'
                             }} onClick={props.disabled ? clickDisabled : props.redo} wType="texted" className={`${buttonStyle}`}>
-                            <i className="material-icons">redo</i>
-                        </WButton>
-                        <WButton onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`}>
-                            <i className="material-icons">add_box</i>
-                        </WButton>
-                        <WButton onClick={props.disabled ? clickDisabled : props.setShowDelete} wType="texted" className={`${buttonStyle}`}>
-                            <i className="material-icons">delete_outline</i>
-                        </WButton>
-                        <WButton onClick={props.disabled ? clickDisabled : () => closeList()} wType="texted" className={`${buttonStyle}`}>
-                            <i className="material-icons">close</i>
-                        </WButton>
+                            <i className="material-icons redoTable">redo</i>
+                        </span>
+                        <span onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`}>
+                            <i className="material-icons addTable">add_box</i>
+                        </span>
+                        {/* <span onClick={props.disabled ? clickDisabled : props.setShowDelete} wType="texted" className={`${buttonStyle}`}>
+                            <i className="material-icons deleteTable">delete_outline</i>
+                        </span> */}
+                        <span onClick={props.disabled ? clickDisabled : () => closeList()} wType="texted" className={`${buttonStyle}`}>
+                            <i className="material-icons closeTable">close</i>
+                        </span>
                     </div>
                 </WCol>
 

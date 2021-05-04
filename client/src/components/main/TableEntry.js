@@ -10,6 +10,10 @@ const TableEntry = (props) => {
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';
     const assignedTo = data.assigned_to;
+
+    const [leader, setLeader] = useState("");
+    const [landmarks, setLandmarks] = useState("");
+
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
@@ -19,24 +23,26 @@ const TableEntry = (props) => {
     let flagLowest = false;
 
 
+
     const handleDateEdit = (e) => {
         toggleDateEdit(false);
-        const newDate = e.target.value ? e.target.value : 'No Date';
+        const newDate = e.target.value ? e.target.value : '';
         const prevDate = due_date;
         props.editItem(data._id, 'due_date', newDate, prevDate);
     };
 
     const handleDescrEdit = (e) => {
         toggleDescrEdit(false);
-        const newDescr = e.target.value ? e.target.value : 'No Description';
+        const newDescr = e.target.value ? e.target.value : '';
         const prevDescr = description;
         props.editItem(data._id, 'description', newDescr, prevDescr);
     };
 
     const handleStatusEdit = (e) => {
         toggleStatusEdit(false);
-        const newStatus = e.target.value ? e.target.value : false;
+        const newStatus = e.target.value ? e.target.value : '';
         const prevStatus = status;
+        setLeader(e.target.value);
         props.editItem(data._id, 'completed', newStatus, prevStatus);
     };
 
@@ -91,37 +97,33 @@ const TableEntry = (props) => {
 
             <WCol size="2">
                 {
-               
-                    editingStatus  || status === ''
-                    ? <WInput
-                    className='table-input' onBlur={handleStatusEdit}
-                    autoFocus={true} defaultValue={status} type='text'
-                    wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                    editingStatus || status === ' ' ?
+                     <WInput
+                        className='table-select' onBlur={handleStatusEdit}
+                        autoFocus={true} defaultValue={leader} type='text'
+                        wType="outlined" barAnimation="solid" inputClass="table-input-class"
                     />
-                    : <div className="table-text"
-                    onClick={() => toggleStatusEdit(!editingStatus)}
-                    >{status}
-                    </div>
+                        : <div onClick={() => toggleStatusEdit(!editingStatus)} className={` table-text`}>
+                            {leader}
+                        </div>
 
-
+                        
                 }
             </WCol>
 
             <WCol size="3">
                 {
-                    editingAssignedTo
+                    editingAssignedTo || assignedTo === ''
                     ?
                     <WInput
                     className='table-input' onBlur={handleAssignedToEdit}
                     defaultValue={assignedTo} type='text'
-                    inputClass="table-input-class"   
+                    wType="outlined" barAnimation="solid" inputClass="table-input-class" 
                     
                     />
                     : <div className="table-text" 
                         onClick={() => toggleAssignedToEdit(!editingAssignedTo)}
-                        style={{
-                            color: status!=='complete'? 'red' : 'black'
-                          }}>{assignedTo}
+                        >{assignedTo}
                     </div>
                 }
             </WCol>

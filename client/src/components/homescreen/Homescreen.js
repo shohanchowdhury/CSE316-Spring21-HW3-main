@@ -120,9 +120,9 @@ const Homescreen = (props) => {
 		const newItem = {
 			_id: '',
 			id: lastID,
-			description: 'No Description',
-			due_date: 'No Date',
-			assigned_to: "Not Assigned",
+			description: '',
+			due_date: '',
+			assigned_to: "",
 			completed: false
 		};
 		let opcode = 1;

@@ -16,7 +16,6 @@ const typeDefs = gql `
 		due_date: String!
 		assigned_to: String!
 		completed:  String!
-		landmarks: String!
 	}
 	extend type Query {
 		getAllTodos: [Todolist]
