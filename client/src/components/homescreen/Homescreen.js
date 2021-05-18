@@ -7,6 +7,7 @@ import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
 import CreateAccount 					from '../modals/CreateAccount';
 import EditAccount						from '../modals/EditAccount';
+import Subregion						from '../modals/Subregion';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
@@ -33,9 +34,12 @@ const Homescreen = (props) => {
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showEdit, toggleShowEdit]		= useState(false);
 	const [loggedIn, toggleLoggedIn]		= useState(false);
+	const [showSubregion, toggleShowSubregion]		= useState(false);
+
 
 	const [currentUser, currentUserSet]		=useState(null);
 	const [currentList, currentListSet]		=useState(null);
+	const [currentRegion, currentRegionSet] =useState(null);
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
@@ -79,6 +83,8 @@ const Homescreen = (props) => {
 	}
 
 	const tpsUndo = async () => {
+		console.log("UNDOINNGGG")
+		console.log(props.tps)
 		const retVal = await props.tps.undoTransaction();
 		refetchTodos(refetch);
 		return retVal;
@@ -253,6 +259,12 @@ const Homescreen = (props) => {
 		toggleShowEdit(!showEdit);
 	};
 
+	
+	const setShowSubregion = () => {
+		// console.log("ASDASDSAD")
+		toggleShowSubregion(!showSubregion);
+	};
+
 	const dosomething = () => {
 		console.log("ASDASDSDASD")
 	};
@@ -272,6 +284,16 @@ const Homescreen = (props) => {
 	const getActiveList = () =>{
 		return activeList;
 	}
+	const updateRegion = (e) =>{
+		currentRegionSet(true);
+		console.log(e)
+
+		toggleShowSubregion(true);
+		console.log("WOWZX")
+		console.log(currentRegion)
+
+	}
+	
 	
 
 
@@ -292,7 +314,7 @@ const Homescreen = (props) => {
 							fetchUser={props.fetchUser} auth={auth} 
 							user={user}
 							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-							setShowEdit={dosomething} setShowEdit={setShowEdit}
+							setShowEdit={setShowEdit}
 							refetchTodos={refetch} setActiveList={setActiveList}
 							loggerOuting={loggerOuting}
 							updateUser={updateUser}
@@ -360,13 +382,16 @@ const Homescreen = (props) => {
 										loggerOuting={loggerOuting}
 										activeList={activeList} setActiveList={setActiveList}
 										setShowEdit={setShowEdit} showEdit={showEdit}
+										setShowSubregion={setShowSubregion} showSubregion={showSubregion}
 										undo={tpsUndo} redo={tpsRedo}
 										hasUndo={hasUndo} hasRedo={hasRedo}
 										resetTps={resetTps}
 										todolists={todolists} 
 										activeid={activeList.id} auth={auth}
+										updateRegion={updateRegion}
 										handleSetActive={handleSetActive} createNewList={createNewList}
 										updateListField={updateListField}
+										currentRegion={currentRegion}
 
 									/>
 								</div>
@@ -396,6 +421,7 @@ const Homescreen = (props) => {
 			{
 				showEdit && (<EditAccount  fetchUser={props.fetchUser} setShowEdit={setShowEdit} user={user} getUser={getUser}/>)
 			}
+
 
 
 			

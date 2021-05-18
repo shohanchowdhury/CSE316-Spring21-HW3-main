@@ -8,7 +8,7 @@ const TableEntry = (props) => {
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
     const description = data.description;
-    const [due_date, setDue_date] = useState(data.due_date);
+    const due_date = data.due_date;
     const [status, setStatus] = useState(data.completed);
     const assignedTo = data.assigned_to;
 
@@ -151,7 +151,7 @@ const TableEntry = (props) => {
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
                             : <div onClick={() => toggleStatusEdit(!editingStatus)} className={` table-text`}>
-                                {due_date.substring(due_date.lastIndexOf("//")+2,due_date.length)}
+                                {due_date.substring(due_date.lastIndexOf("//")+2,due_date.length}
                             </div>
 
                             

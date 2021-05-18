@@ -427,7 +427,6 @@ h1 {
 }
 
 .createNewMap{
-    display: none;
     top: 0px;
     left: 765px;
     height: 30px;
@@ -554,7 +553,7 @@ h1 {
 }
 
 .bigBox{
-    width: 1590px;
+    width: 1600px;
     background-color: crimson;
 }
 
@@ -569,10 +568,9 @@ h1 {
 
 .subRegionViewer{
     position: absolute;
-    background-color: rgb(27, 27, 27);
-    top: 64px;
-    left: 0px;
-    height: 1000px;
+    background-color: rgb(150, 64, 64);
+    top: 65px;
+    height: 3000px;
     width: 100%;
 
 }
@@ -586,30 +584,4 @@ h1 {
     position: absolute;
     height: 20px;
     width: 300px;
-}
-
-.regionNamer{
-    padding-top: 300px;
-    padding-left: 20px;
-    color: white;
-}
-.regionDater{
-    padding-left: 20px;
-    color: white;
-}
-.regionLeader{
-    padding-left: 20px;
-    color: white;
-}
-.subRegionParent{
-    font-size: 110%;
-    padding-left: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: white;
-}
-.closeRegion{
-    position: absolute;
-    right:400px;
-    top:-20px;
 }

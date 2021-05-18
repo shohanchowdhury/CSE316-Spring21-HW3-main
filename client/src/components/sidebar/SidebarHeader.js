@@ -8,7 +8,7 @@ const SidebarHeader = (props) => {
     return (
         <div>
             {        
-            false?
+            true?
                 <WRow className='sidebar-header'>
                 
                         {
@@ -19,12 +19,12 @@ const SidebarHeader = (props) => {
                                 }}>
                                     <i className="material-icons">add</i>
                                 </WButton>
-                                {/* <WButton className="sidebar-buttons undo-redo" onClick={props.undo} wType="texted" clickAnimation="ripple-light" shape="rounded">
+                                <WButton className="sidebar-buttons undo-redo" onClick={props.undo} wType="texted" clickAnimation="ripple-light" shape="rounded">
                                     <i className="material-icons">undo</i>
                                 </WButton>
                                 <WButton className="sidebar-buttons undo-redo" onClick={props.redo} wType="texted" clickAnimation="ripple-light" shape="rounded">
                                     <i className="material-icons">redo</i>
-                                </WButton> */}
+                                </WButton>
                             </div>
                         }
 

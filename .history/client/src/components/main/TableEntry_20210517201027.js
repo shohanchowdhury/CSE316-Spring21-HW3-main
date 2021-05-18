@@ -8,8 +8,8 @@ const TableEntry = (props) => {
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
     const description = data.description;
-    const [due_date, setDue_date] = useState(data.due_date);
-    const [status, setStatus] = useState(data.completed);
+    const due_date = data.due_date;
+    const [status, setStatus] = useState("Hey");
     const assignedTo = data.assigned_to;
 
     const [leader, setLeader] = useState("");
@@ -33,13 +33,9 @@ const TableEntry = (props) => {
 
     const handleDateEdit = (e) => {
         toggleDateEdit(false);
-        let afterStuff = due_date.substring(due_date.lastIndexOf("//")+2,due_date.length);
         const newDate = e.target.value ? e.target.value : '';
         const prevDate = due_date;
-        let  newDDDate = (newDate+"//")
-        let newDDate = newDDDate+ afterStuff
-        setDue_date(newDDate)
-        props.editItem(data._id, 'due_date', newDDate, prevDate);
+        props.editItem(data._id, 'due_date', newDate, prevDate);
     };
 
     const handleDescrEdit = (e) => {
@@ -51,15 +47,11 @@ const TableEntry = (props) => {
 
     const handleStatusEdit = (e) => {
         toggleStatusEdit(false);
-        let n = due_date.lastIndexOf('//');
-
-        const newDate = e.target.value ? e.target.value : '';
-        const prevDate = due_date;
-        var initialP = due_date.substring(0,due_date.lastIndexOf("//"));
-        let intialP2 = initialP + "//";
-        let setterDate = intialP2 +""+ newDate
-        setDue_date(setterDate)
-        props.editItem(data._id, 'due_date', setterDate, prevDate);
+        const newStatus = e.target.value ? e.target.value : '';
+        const prevStatus = status;
+        setStatus(newStatus)
+        setLeader(e.target.value);
+        props.editItem(data._id, 'd', newStatus, prevStatus);
     };
 
     const handleAssignedToEdit = (e) => {
@@ -132,12 +124,12 @@ const TableEntry = (props) => {
                         editingDate  || due_date === ''
                             ? <WInput
                             className='table-input' onBlur={handleDateEdit}
-                            autoFocus={true} defaultValue={""} type='text'
+                            autoFocus={true} defaultValue={due_date} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                             />
                             : <div className="table-text"
                             onClick={() => toggleDateEdit(!editingDescr)}
-                            >{(due_date.substring(0,due_date.lastIndexOf("//")))}
+                            >{due_date}
                             </div>
                     }
                 </WCol>
@@ -145,13 +137,13 @@ const TableEntry = (props) => {
                 <WCol size="1"  className="leaderCol">
                     {
                         editingStatus?
-                        <input
-                            className='table-select regionNameInput' onBlur={handleStatusEdit}
-                            autoFocus={true} defaultValue={""} type='text'
+                        <WInput
+                            className='table-select' onBlur={handleStatusEdit}
+                            autoFocus={true} defaultValue={status} type='text'
                             wType="outlined" barAnimation="solid" inputClass="table-input-class"
                         />
                             : <div onClick={() => toggleStatusEdit(!editingStatus)} className={` table-text`}>
-                                {due_date.substring(due_date.lastIndexOf("//")+2,due_date.length)}
+                                {status}
                             </div>
 
                             

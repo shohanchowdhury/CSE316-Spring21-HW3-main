@@ -52,11 +52,14 @@ const MainContents = (props) => {
                 resetTps={props.resetTps}
                 activeList={props.activeList}
                 createNewList={props.createNewList}
+                updateRegion={props.updateRegion}
+
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}
                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                 editItem={props.editItem}
+                updateRegion={props.updateRegion}
             />
         </div>
     );

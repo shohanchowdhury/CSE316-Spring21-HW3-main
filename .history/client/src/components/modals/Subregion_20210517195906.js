@@ -1,0 +1,150 @@
+import React, { useState } 	from 'react';
+import { REGISTER }			from '../../cache/mutations';
+
+import { EDITACCOUNT }			from '../../cache/mutations';
+import { useMutation }    	from '@apollo/client';
+import { GET_DB_USER } 				from '../../cache/queries';
+import { useQuery } 		from '@apollo/client';
+
+import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow, WCol } from 'wt-frontend';
+
+const Subregion = (props) => {
+
+    
+	const [currentRegion] = useState(props.currentRegion)
+	const [loading, toggleLoading] = useState(false);
+	const [EditAccount] = useMutation(EDITACCOUNT);
+	const [Register] = useMutation(REGISTER);
+    
+	const [show] = useState(true);
+    const [regionName, setRegionName] = useState("");
+    const data = currentRegion;
+
+    const [description, setDescription] = useState(props.currentRegion.description);
+    const [due_date, setDue_date] = useState(props.currentRegion.due_date);
+    const [status, setStatus] = useState(props.currentRegion.status);
+    const [assignedTo, setAssignedTo] = useState(props.currentRegion.assigned_to);
+    const [leader, setLeader] = useState("");
+    const [landmark, setLandmark] = useState("");
+    const [flag, setFlag] = useState("");
+
+    const [editingDate, toggleDateEdit] = useState(false);
+    const [editingDescr, toggleDescrEdit] = useState(false);
+    const [editingStatus, toggleStatusEdit] = useState(false);
+    const [editingAssignedTo, toggleAssignedToEdit] = useState(false);
+    const [editingLand, toggleLandEdit] = useState(false);
+    const [editingFlag, toggleFlagEdit] = useState(false);
+
+
+
+
+		
+
+    const nameSet = (e) =>{
+        console.log(props)
+    }
+    const handleNameChange = (e) =>{
+        toggleDescrEdit(false);
+        const newDescr = e.target.value ? e.target.value : '';
+        const prevDescr = currentRegion.description;
+        props.regionNameChange(e, 'description', newDescr, prevDescr);
+
+    }
+    const descEdit1 = (e) =>{
+        props.handleDescrEdit(e);
+    }
+    const closingSubRegion = (e) =>{
+        props.setCurrentRegion(null);
+        props.toggleViewingRegion(false);
+    }
+    const handleDescrEdit = (e) => {
+        toggleDescrEdit(false);
+        const newDescr = e.target.value ? e.target.value : '';
+        const prevDescr = description;
+        console.log("HEY")
+        console.log(props.currentRegion._id);
+        setDescription(newDescr)
+
+        
+        props.editItem(props.currentRegion._id, 'description', newDescr, prevDescr);
+    };
+
+    const handleStatusEdit = (e) => {
+        toggleStatusEdit(false);
+        const newStatus = e.target.value ? e.target.value : '';
+        const prevStatus = status;
+        setLeader(e.target.value);
+        props.editItem(data._id, 'completed', newStatus, prevStatus);
+    };
+
+    const handleAssignedToEdit = (e) => {
+        toggleAssignedToEdit(false);
+        
+        const newAssignedTo = e.target.value ? e.target.value : ''
+        const prevAssignedTo = assignedTo;
+        props.editItem(data._id, 'assigned_to', newAssignedTo, prevAssignedTo);
+    };
+
+    const handleLandEdit = (e) => {
+        toggleLandEdit(false);
+        
+        const newLandmark = e.target.value ? e.target.value : ''
+        const prevLandmark = landmark;
+        setLandmark( e.target.value);
+    };
+
+
+	return (
+        // Replace div with WModal
+
+		<div class="subRegionViewer">
+            {
+                editingDescr?
+                <input
+                class='table-input regionNameInput' onBlur={handleDescrEdit}
+                autoFocus={true} defaultValue={description} type='text'
+                wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                />
+                :
+                <div className="table-text"
+                            onClick={() => toggleDescrEdit(!editingDescr)}
+                            >{description}
+                            </div>
+               
+            }
+            {
+                        editingDate  || due_date === ''
+                            ? <WInput
+                            className='table-input' onBlur={handleDateEdit}
+                            autoFocus={true} defaultValue={due_date} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                            />
+                            : <div className="table-text"
+                            onClick={() => toggleDateEdit(!editingDescr)}
+                            >{due_date}
+                            </div>
+            }
+            {
+                editingStatus?
+                        <WInput
+                            className='table-select' onBlur={handleStatusEdit}
+                            autoFocus={true} defaultValue={leader} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                            : <div onClick={() => toggleStatusEdit(!editingStatus)} className={` table-text`}>
+                                {leader}
+                            </div>
+
+                            
+            }
+		
+                <span onClick={(closingSubRegion)} style={{color:"white"}}>
+                    BUTTON
+                </span>
+							
+			
+		</div >
+	);
+}
+
+export default Subregion;
